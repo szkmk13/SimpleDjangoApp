@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1> karl </h1>
+
+<ul>
+{%  for man in object_list %}
+
+    {% if man.name == 'karl' %}
+    
+        <li>  {{man.name}} {{ man.msgs }}</li>
+ 
+    {% endif %}
+    
+
+{%endfor%}
+</ul>
+
+
+{% endblock %}
