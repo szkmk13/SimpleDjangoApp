@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% load suma %}
+
+
+   
+  <div class="row">
+    <div class="col-8"><table class="table table-striped table-hover table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Trójmiejski</th>
+            <th scope="col">Wiadomości</th>
+            <th scope="col">Zdjęcia</th>
+            <th scope="col">Otrzymane reakcje</th>
+            <th scope="col">Zapostowane stopy</th>
+            <th scope="col">Śr reakcje/foty</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row"><a href="krzysiem" >krzysiem</a></th>
+            <td>{{  0 | suma_msg:"krzysiem" }}</td>
+            <td>{{  0 | suma_zdj:"krzysiem" }}</td>
+            <td></td>
+            <td></td>
+            <td>{{ 0 | score:"krzysiem" }}</td>
+          </tr>
+          <tr>
+            <th scope="row"><a href="szym" >szym</a></th>
+            <td> {{  0 | suma_msg:"szym" }}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <th scope="row"><a href="karl" >karl</a></th>
+            <td>{{  0 | suma_msg:"karl" }}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td> </td>
+          </tr>
+        </tbody>
+      </table></div>
+    <div class="col-4">zdjecie tu bedzie wyrkes jak cos</div>
+    
+  </div>
+  <a class="btn btn-dark"></a>dodaj trojmiejskie</a>
+{% endblock %}
