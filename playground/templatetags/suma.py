@@ -11,7 +11,8 @@ from ..models import Person
 trojmiejskie_dict={         #tutaj zrobić cały dict z listami?
         "krzysiem":0,
         "szym":0,
-        "karl":0
+        "karl":0,
+        "absonic":0
     }
 
 @register.filter
