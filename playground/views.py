@@ -8,13 +8,7 @@ from .models import Person
 
 class HomeView(ListView):
     model = Person
-    krz=Person()
-    krz.name="krzysiem"
-    krz.msgs=109
-    krz.zdj=10
-    krz.reakcje=10
-    krz.stopy=0
-    krz.save
+
     template_name = "home.html"
 
 class PersonDetailView(ListView):
