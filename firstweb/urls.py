@@ -23,9 +23,6 @@ from playground import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.HomeView.as_view(), name='home'),
-    path('krzysiem', views.Krzysiem.as_view(), name="krzysiem"),
-    path('szym', views.Szym.as_view(), name="szym"),
-    path('karl', views.Karl.as_view(), name="karl"),
-    path('details', views.PersonDetailView.as_view(), name='details'),
-    path('person/<int:pk>', views.PersonDetailView.as_view(), name='person-detail')
+    path('<int:id>/', views.PersonDetailView.as_view(), name="detail"),
+
 ]
