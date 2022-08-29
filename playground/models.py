@@ -1,19 +1,18 @@
 from django.db import models
 import json
 from django.contrib.auth.models import User
+from django.db.models import CASCADE
 
-datawpisu = "teraz"
 
-class Person(models.Model):                 # nazwa tego obiektu będize nazwą osoby w niej tylko liczby   
-    
-   # a = models.ForeignKey(User, on_delete=models.CASCADE)
+class Person(models.Model):
     name = models.TextField(max_length=30)
-    msgs = models.PositiveSmallIntegerField(default=0)
-    zdj = models.PositiveSmallIntegerField(default=0)
-    reakcje = models.PositiveSmallIntegerField(default=0)
-    stopy = models.PositiveSmallIntegerField(default=0)
     
     def __str__ (self):
         return str(self.name)
 
-
+class Score(models.Model):
+    owner = models.ForeignKey(Person, on_delete=CASCADE)
+    messages = models.PositiveSmallIntegerField(default=0)
+    photos = models.PositiveSmallIntegerField(default=0)
+    reactions = models.PositiveSmallIntegerField(default=0)
+    feet = models.PositiveSmallIntegerField(default=0)

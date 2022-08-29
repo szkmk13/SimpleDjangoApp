@@ -16,16 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.http import HttpResponse
 from django.urls import path, include
-from playground import views
+
 
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.HomeView.as_view(), name='home'),
-    path('krzysiem', views.Krzysiem.as_view(), name="krzysiem"),
-    path('szym', views.Szym.as_view(), name="szym"),
-    path('karl', views.Karl.as_view(), name="karl"),
-    path('details', views.PersonDetailView.as_view(), name='details'),
-    path('person/<int:pk>', views.PersonDetailView.as_view(), name='person-detail')
+    path('', include('playground.urls')),
+
 ]
