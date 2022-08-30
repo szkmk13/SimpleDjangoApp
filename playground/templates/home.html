@@ -3,8 +3,8 @@
 
 {% load suma %}
 
-
-   
+    {{form.as_p}}
+    {{filter.as_p}}
   <div class="row">
     <div class="col-8"><table class="table table-striped table-hover table-bordered">
         <thead>
@@ -18,34 +18,22 @@
           </tr>
         </thead>
         <tbody>
+        {% for person in pepole %}
           <tr>
-            <th scope="row"><a href="krzysiem" >krzysiem</a></th>
-            <td>{{  0 | suma_msg:"krzysiem" }}</td>
-            <td>{{  0 | suma_zdj:"krzysiem" }}</td>
-            <td></td>
-            <td></td>
-            <td>{{ 0 | score:"krzysiem" }}</td>
+            <th scope="row"><a href="krzysiem" >{{person.name}}</a></th>
+              <td>{{ person.sum_messages }}</td>
+              <td>{{  person.sum_photos }}</td>
+              <td>{{  person.sum_reactions }}</td>
+              <td>{{ person.sum_feet }}</td>
+              <td></td>
+
+
           </tr>
-          <tr>
-            <th scope="row"><a href="szym" >szym</a></th>
-            <td> {{  0 | suma_msg:"szym" }}</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <th scope="row"><a href="karl" >karl</a></th>
-            <td>{{  0 | suma_msg:"karl" }}</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td> </td>
-          </tr>
+        {% endfor %}
         </tbody>
       </table></div>
     <div class="col-4">zdjecie tu bedzie wyrkes jak cos</div>
     
   </div>
-  <a class="btn btn-dark"></a>dodaj trojmiejskie</a>
+  <a class="btn btn-dark" href="add_score">dodaj score</a>
 {% endblock %}
