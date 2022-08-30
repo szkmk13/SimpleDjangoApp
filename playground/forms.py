@@ -24,3 +24,4 @@ class MonthForm(forms.Form):
 
 class ScoreForm(forms.Form):
     file = forms.FileField()
+    month_select = forms.ChoiceField(choices=MONTH_CHOICES)
