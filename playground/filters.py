@@ -13,5 +13,4 @@ class ProductFilter(django_filters.FilterSet):
 
     class Meta:
         model = Score
-        fields = ['date_from','date_to']
-
+        fields = ['date_from', 'date_to']
