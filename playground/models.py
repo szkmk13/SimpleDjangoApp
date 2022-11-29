@@ -4,7 +4,7 @@ from django.db.models import CASCADE
 
 
 class Person(models.Model):
-    name = models.TextField(max_length=30)
+    name = models.TextField(max_length=30, unique=True)
 
     def __str__(self):
         return str(self.name)
@@ -33,15 +33,35 @@ class Person(models.Model):
             sum += x.feet
         return sum
 
+    def sum_word(self):
+        try:
+            return Word.objects.filter(sender=self).order_by('-count').first().message
+        except AttributeError:
+            return 0
+
+    def sum_word_count(self):
+        try:
+            return Word.objects.filter(sender=self).order_by('-count').first().count
+        except AttributeError:
+            return 0
+
 
 class Word(models.Model):
     sender = models.ForeignKey(Person, on_delete=CASCADE)
     message = models.CharField(max_length=30)
     count = models.PositiveIntegerField(default=0)
 
+    def __str__(self):
+        return self.message + " " + str(self.count)
+
+    def increase_count(self):
+        self.count += 1
+        self.save()
+
 
 class ChatMessage(models.Model):
     sender = models.ForeignKey(Person, on_delete=CASCADE)
+    message = models.CharField(max_length=200, default="")
     send_at = models.DateTimeField(auto_now_add=False)
     reactions = models.ManyToOneRel(Person, field_name="reactions", to="a")
 

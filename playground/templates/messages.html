@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+    <ul>
+        {%  for object in messages %}
+            <li>
+               {{ object.sender }} : {{ object.message }} : {{ object.send_at }}
+            </li>
+        {%  endfor %}
+    </ul>
+
+
+
+
+{% endblock %}

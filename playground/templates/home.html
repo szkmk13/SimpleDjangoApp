@@ -15,6 +15,8 @@
             <th scope="col">Otrzymane reakcje</th>
             <th scope="col">Zapostowane stopy</th>
             <th scope="col">Śr reakcje/foty</th>
+              <th scope="col">Najczęstsze słowo</th>
+              <th scope="col">Ilość wysłanego</th>
           </tr>
         </thead>
         <tbody>
@@ -25,7 +27,9 @@
               <td>{{  person.sum_photos }}</td>
               <td>{{  person.sum_reactions }}</td>
               <td>{{ person.sum_feet }}</td>
-              <td></td>
+              <td>tbd</td>
+              <td>{{ person.sum_word }}</td>
+              <td>{{ person.sum_word_count }}</td>
 
 
           </tr>
@@ -36,4 +40,5 @@
     
   </div>
   <a class="btn btn-dark" href="add_score">dodaj score</a>
+    <a class="btn btn-dark" href="add_message">dodaj msg</a>
 {% endblock %}

@@ -5,13 +5,22 @@ from django.db import DEFAULT_DB_ALIAS
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.urls import reverse
+from django.utils import timezone
 from django.views.generic import ListView, DetailView, FormView
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework.viewsets import ViewSet
 
 from .filters import ProductFilter
-from .forms import MonthForm, ScoreForm
-from .models import Person, Score
+from .forms import MonthForm, ScoreForm, MessageForm
+from .models import Person, Score, ChatMessage, Word
 from zipfile import ZipFile
+
+
+class MessagesView(ListView):
+    template_name = "messages.html"
+    context_object_name = "messages"
+    queryset = ChatMessage.objects.all()
 
 
 class HomeView(ListView):
@@ -24,6 +33,7 @@ class HomeView(ListView):
         context = super().get_context_data()
         context['form'] = MonthForm
         context['filter'] = ProductFilter
+
         return context
 
 
@@ -32,17 +42,41 @@ class PersonDetailView(ListView):
     template_name = 'details.html'
 
 
+class AddMessageView(FormView):
+    template_name = "add_message.html"
+    form_class = MessageForm
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid:
+            sender = Person.objects.filter(name__exact=form.data['author']).first()
+            message = form.data['message']
+            ChatMessage.objects.create(sender=sender, message=message, send_at=timezone.now())
+            words = message.split(" ")
+            for word in words:
+                word_obj = Word.objects.filter(sender=sender).filter(message=word).first()
+                if word_obj:
+                    word_obj.count += 1
+                    word_obj.save()
+                else:
+                    Word.objects.create(sender=sender, message=word, count=1)
+            return redirect(reverse('home'))
+        else:
+            return self.form_invalid(form)
+
+
 class AddScoreView(FormView):
     template_name = "add_score.html"
-    model = Score
     form_class = ScoreForm
 
     def get_filenames(self, path_to_zip):
-        """ return list of filenames inside of the zip folder"""
-        with ZipFile(path_to_zip, 'r') as zip:
-            return zip.namelist()
+        """ return list of filenames inside the zip folder"""
+        with ZipFile(path_to_zip, 'r') as zipped:
+            return zipped.namelist()
 
-    def get_trojmiejskie_file(self, filenames):
+    @staticmethod
+    def get_trojmiejskie_file(filenames):
+
         base = 'messages/inbox/trojmiejskie'
         end = 'message_1.json'
         for name in filenames:
